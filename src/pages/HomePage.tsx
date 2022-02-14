@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Container, Row, Col } from "react-bootstrap"
+import Student from "../components/Student"
 
-const HomePage = () => {
-  const [data, setData] = useState([])
+interface StudentInterface {
+  id: number
+  first_name: string
+  last_name: string
+  gender: string
+  email: string
+  city: string
+}
+
+const HomePage: React.FC = () => {
+  const [data, setData] = useState<Array<StudentInterface>>([])
 
   async function getData() {
     const res = await axios.get(
-      "https://run.mocky.io/v3/9d135bc2-10bd-426c-92d3-5218072faea5"
+      "https://run.mocky.io/v3/a4319818-f52c-41cc-bed2-124746b0e56c"
     )
 
     return res
@@ -22,7 +32,19 @@ const HomePage = () => {
       .catch((err) => console.error(err))
   }, [])
 
-  return <></>
+  return (
+    <>
+      <Container>
+        <Row>
+          {data.map((student: StudentInterface) => (
+            <Col key={student.id} sm={12} md={6} lg={4} xl={4}>
+              <Student student={student} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </>
+  )
 }
 
 export default HomePage
