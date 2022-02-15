@@ -1,9 +1,9 @@
-import React from "react"
+import React, { FC } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import HomePage from "./pages/HomePage"
 import "./App.css"
 
-function App() {
+const App: FC = () => {
   return (
     <Router>
       <Switch>

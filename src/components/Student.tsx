@@ -1,21 +1,14 @@
-import React from "react"
+import React, { FC, useState, useEffect, ChangeEvent } from "react"
+import { StudentI } from "../interfaces/studentInterface"
 import { Link } from "react-router-dom"
-import { Card } from "react-bootstrap"
+import { Card, Form } from "react-bootstrap"
 
-interface StudentInterface {
-  id: number
-  first_name: string
-  last_name: string
-  gender: string
-  email: string
-  city: string
+interface Props {
+  student: StudentI
+  handleChecked: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-interface LayoutProps {
-  student: StudentInterface
-}
-
-const Student: React.FC<LayoutProps> = ({ student }) => {
+const Student: FC<Props> = ({ student, handleChecked }) => {
   return (
     <Card className='my-3 p-3 rounded student-card'>
       {/* <Link to={`/student/${student._id}`}>
@@ -25,13 +18,23 @@ const Student: React.FC<LayoutProps> = ({ student }) => {
       <Card.Body>
         <Link to={`/student/${student.id}`}>
           <Card.Title as='div'>
-            <strong>{student.first_name}</strong>
+            <strong>
+              {student.first_name} {student.last_name}
+            </strong>
           </Card.Title>
         </Link>
 
-        {/* <Card.Text as='div'></Card.Text>
-
-        <Card.Text as='h3'>${student.price}</Card.Text> */}
+        <Card.Text as='p'>{student.gender}</Card.Text>
+        <Form>
+          <Form.Group className='mb-3' controlId='DeleteCheckbox'>
+            <Form.Check
+              type='checkbox'
+              label='Delete Me'
+              checked={student.isChecked}
+              onChange={handleChecked}
+            />
+          </Form.Group>
+        </Form>
       </Card.Body>
     </Card>
   )
