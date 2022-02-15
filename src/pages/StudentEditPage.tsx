@@ -1,6 +1,7 @@
-import React, { FC, useState, useEffect } from "react"
+import React, { useState, useEffect, FormEvent } from "react"
 import { Link, RouteComponentProps, match } from "react-router-dom"
 import { Button, Form, Container, Row, Col } from "react-bootstrap"
+import { StudentI } from "../interfaces/studentInterface"
 
 interface RouteParams {
   id: string
@@ -9,6 +10,7 @@ interface RouteParams {
 const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
   const studentId = Number(match.params.id)
 
+  const [data, setData] = useState<Array<StudentI>>([])
   const [firstName, setfirstName] = useState("")
   const [lastName, setlastName] = useState("")
   const [gender, setGender] = useState("")
@@ -21,6 +23,8 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
       let parsedData = JSON.parse(dataFromStorage)
       const { first_name, last_name, gender, email, city } =
         parsedData[studentId - 1]
+
+      setData(parsedData)
       setfirstName(first_name)
       setlastName(last_name)
       setGender(gender)
@@ -29,8 +33,22 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
     }
   }, [studentId])
 
-  const submitHandler = () => {
-    // e.preventDefault()
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    let dataToSave = [...data]
+    dataToSave[studentId - 1] = {
+      id: studentId - 1,
+      first_name: firstName,
+      last_name: lastName,
+      gender,
+      city,
+      email,
+      isChecked: false,
+    }
+    localStorage.setItem("students", JSON.stringify(dataToSave))
+
+    alert("student information updated successfully!")
   }
 
   return (
@@ -65,11 +83,15 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
         <Form.Group controlId='lastname'>
           <Form.Label>Gender</Form.Label>
           <Form.Control
-            type='name'
+            as='select'
             placeholder='Enter gender'
             value={gender}
             onChange={(e) => setGender(e.target.value)}
-          ></Form.Control>
+          >
+            <option value='Male'>Male</option>
+            <option value='Female'>Female</option>
+            <option value='Other'>Other</option>
+          </Form.Control>
         </Form.Group>
 
         <Form.Group controlId='lastname'>
