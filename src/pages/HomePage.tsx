@@ -30,42 +30,55 @@ const HomePage: FC = () => {
   }, [])
 
   const handleChecked = (e: ChangeEvent<HTMLInputElement>, id: number) => {
-    console.log(e.target.checked, id)
     let dataFromStorage = [...data]
     dataFromStorage[id - 1].isChecked = e.target.checked
     localStorage.setItem("students", JSON.stringify(dataFromStorage))
     setData(dataFromStorage)
   }
 
-  const handleDelete = (e: MouseEvent<HTMLInputElement>) => {
-    //e.target.value
+  const handleDelete = () => {
+    let isConfirmed: boolean = window.confirm(
+      "Are you sure you want to delete checked?"
+    )
+    if (isConfirmed) {
+      let studentsToNotDelete = [...data]
+      studentsToNotDelete = studentsToNotDelete.filter(
+        (student) => !student.isChecked
+      )
+      localStorage.setItem("students", JSON.stringify(studentsToNotDelete))
+      setData(studentsToNotDelete)
+    }
   }
 
   return (
     <>
       <Container>
         <Row>
-          <h2>Student List</h2>
+          <Col>
+            <h2>Student List</h2>
+          </Col>
+          <Col sm={12} md={4} lg={3} xl={3}>
+            <Button
+              type='submit'
+              variant='danger'
+              className='p-2 search-btn'
+              onClick={handleDelete}
+            >
+              Delete Selected
+            </Button>
+          </Col>
         </Row>
+
         <Row>
-          <Button
-            type='submit'
-            variant='danger'
-            className='p-2 search-btn'
-            onClick={handleDelete}
-          >
-            Delete Selected
-          </Button>
-        </Row>
-        <Row>
-          {data.map((student: StudentI) => (
-            <Col key={student.id} sm={12} md={6} lg={4} xl={4}>
-              <Student
-                student={student}
-                handleChecked={(e) => handleChecked(e, student.id)}
-              />
-            </Col>
-          ))}
+          {data.length !== 0 &&
+            data.map((student: StudentI) => (
+              <Col key={student.id} sm={12} md={6} lg={4} xl={4} className='my-2'>
+                <Student
+                  student={student}
+                  handleChecked={(e) => handleChecked(e, student.id)}
+                />
+              </Col>
+            ))}
         </Row>
       </Container>
     </>
