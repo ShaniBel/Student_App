@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, MouseEvent, ChangeEvent } from "react"
+import React, { FC, useEffect, useState, ChangeEvent } from "react"
 import axios from "axios"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import Student from "../components/Student"
@@ -17,7 +17,6 @@ const HomePage: FC = () => {
   useEffect(() => {
     const dataFromStorage = localStorage.getItem("students")
     if (dataFromStorage) {
-      console.log(dataFromStorage)
       setData(JSON.parse(dataFromStorage))
     } else {
       getData()
@@ -52,12 +51,12 @@ const HomePage: FC = () => {
 
   return (
     <>
-      <Container>
+      <Container className='my-3'>
         <Row>
           <Col>
             <h2>Student List</h2>
           </Col>
-          <Col sm={12} md={4} lg={3} xl={3}>
+          <Col sm={12} md={4} lg={4} xl={4}>
             <Button
               type='submit'
               variant='danger'
@@ -72,7 +71,7 @@ const HomePage: FC = () => {
         <Row>
           {data.length !== 0 &&
             data.map((student: StudentI) => (
-              <Col key={student.id} sm={12} md={6} lg={4} xl={4} className='my-2'>
+              <Col key={student.id} sm={12} md={6} lg={5} xl={5} className='my-2'>
                 <Student
                   student={student}
                   handleChecked={(e) => handleChecked(e, student.id)}
