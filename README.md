@@ -1,6 +1,6 @@
 # Student App
 
-The student app was developed with React and TypeScript.
+The student app was developed using React and TypeScript.
 
 ### Functionality includes
 
@@ -11,11 +11,11 @@ The student app was developed with React and TypeScript.
 5. Ability to edit student information in another page using a form.
 6. Validation of edit student form with informative messages to user.
 
-### Home Page screen shot
+### Home Page
 
 ![screenshot](https://github.com/ShaniBel/Student_App/blob/main/images/homePage.png)
 
-### Edit Student Information Page screen shot
+### Edit Student Information Page
 
 ![screenshot](https://github.com/ShaniBel/Student_App/blob/main/images/editStudentPage.png)
 
