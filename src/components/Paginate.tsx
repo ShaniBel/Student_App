@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import { Pagination } from "react-bootstrap"
-import { Link } from "react-router-dom"
 import { LinkContainer } from "react-router-bootstrap"
 
 interface Props {
@@ -25,7 +24,7 @@ const Paginate: FC<Props> = ({
   return (
     <Pagination>
       {pageNumbers.map((number) => (
-        <LinkContainer to={`/page/${number}`}>
+        <LinkContainer key={number} to={`/page/${number}`}>
           <Pagination.Item
             onClick={() => whatPageIsIt(number)}
             active={currentPage === number}

@@ -17,14 +17,24 @@ const Student: FC<Props> = ({ student, handleChecked }) => {
 
       <Card.Body>
         <Card.Title as='div'>
-          <strong>
+          <span>
             {student.first_name} {student.last_name}
-          </strong>
+          </span>
         </Card.Title>
-
-        <Card.Text as='p'>Email: {student.email}</Card.Text>
-        <Card.Text as='p'>Gender: {student.gender}</Card.Text>
-        <Card.Text as='p'>City: {student.city}</Card.Text>
+        <Card.Text as='p'>
+          <span>ID number:</span> {student.id}
+        </Card.Text>
+        <Card.Text as='p'>
+          <span>Gender:</span> {student.gender}
+        </Card.Text>
+        <Card.Text as='p'>
+          <span>City: </span>
+          {student.city}
+        </Card.Text>
+        <Card.Text as='p'>
+          <span>Email: </span>
+          {student.email}
+        </Card.Text>
 
         <Form>
           <Form.Group className='mb-3' controlId='DeleteCheckbox'>

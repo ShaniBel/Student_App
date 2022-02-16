@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState, ChangeEvent } from "react"
 import axios from "axios"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { StudentI } from "../interfaces/studentInterface"
+import students from "../components/Students"
 import Student from "../components/Student"
 import Paginate from "../components/Paginate"
 
@@ -33,7 +34,11 @@ const HomePage = () => {
 
   const handleChecked = (e: ChangeEvent<HTMLInputElement>, id: number) => {
     let dataFromStorage = [...students]
-    dataFromStorage[id - 1].isChecked = e.target.checked
+    for (let i = 0; i < dataFromStorage.length; i++) {
+      if (dataFromStorage[i].id === id) {
+        dataFromStorage[i].isChecked = e.target.checked
+      }
+    }
     localStorage.setItem("students", JSON.stringify(dataFromStorage))
     setStudents(dataFromStorage)
   }

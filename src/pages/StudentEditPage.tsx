@@ -11,6 +11,7 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
   const studentId = Number(match.params.id)
 
   const [data, setData] = useState<Array<StudentI>>([])
+  const [studentLocationInList, setStudentLocationInList] = useState(0)
   const [firstName, setfirstName] = useState("")
   const [lastName, setlastName] = useState("")
   const [gender, setGender] = useState("")
@@ -21,15 +22,18 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
     let dataFromStorage = localStorage.getItem("students")
     if (dataFromStorage !== null) {
       let parsedData = JSON.parse(dataFromStorage)
-      const { first_name, last_name, gender, email, city } =
-        parsedData[studentId - 1]
-
       setData(parsedData)
-      setfirstName(first_name)
-      setlastName(last_name)
-      setGender(gender)
-      setCity(city)
-      setEmail(email)
+
+      for (let i = 0; i < parsedData.length; i++) {
+        if (parsedData[i].id === studentId) {
+          setfirstName(parsedData[i].first_name)
+          setlastName(parsedData[i].last_name)
+          setGender(parsedData[i].gender)
+          setCity(parsedData[i].city)
+          setEmail(parsedData[i].email)
+          setStudentLocationInList(i)
+        }
+      }
     }
   }, [studentId])
 
@@ -37,8 +41,8 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
     e.preventDefault()
 
     let dataToSave = [...data]
-    dataToSave[studentId - 1] = {
-      id: studentId - 1,
+    dataToSave[studentLocationInList] = {
+      id: studentId,
       first_name: firstName,
       last_name: lastName,
       gender,
@@ -57,7 +61,7 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
         Go Back
       </Link>
 
-      <h1>Edit Student</h1>
+      <h1>Edit Student Information</h1>
 
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='firstname'>
