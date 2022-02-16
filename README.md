@@ -23,7 +23,7 @@ The student app was developed using React and TypeScript with responsive design.
 
 in the terminal run:
 
-1.  git clone <copy this repo> .
+1.  git clone -copy this repo-
 2.  npm install
 
 # To run the project in the browser
