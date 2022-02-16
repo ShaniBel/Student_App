@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent } from "react"
+import React, { ChangeEvent } from "react"
 import { StudentI } from "../interfaces/studentInterface"
 import { Link } from "react-router-dom"
 import { Card, Form, Button } from "react-bootstrap"
@@ -8,13 +8,9 @@ interface Props {
   handleChecked: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const Student: FC<Props> = ({ student, handleChecked }) => {
+const Student = ({ student, handleChecked }: Props): JSX.Element => {
   return (
     <Card className='my-3 p-2 rounded student-card h-100'>
-      {/* <Link to={`/student/${student._id}`}>
-        <Card.Img src={student.image} variant='top' />
-      </Link> */}
-
       <Card.Body>
         <Card.Title as='div'>
           <span>

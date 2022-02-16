@@ -1,13 +1,13 @@
 import React, { useState, useEffect, FormEvent } from "react"
-import { Link, RouteComponentProps, match } from "react-router-dom"
-import { Button, Form, Container, Row, Col } from "react-bootstrap"
+import { Link, match } from "react-router-dom"
+import { Button, Form, Container } from "react-bootstrap"
 import { StudentI } from "../interfaces/studentInterface"
 
 interface RouteParams {
   id: string
 }
 
-const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
+const StudentEditPage = ({ match }: { match: match<RouteParams> }): JSX.Element => {
   const studentId = Number(match.params.id)
 
   const [data, setData] = useState<Array<StudentI>>([])
@@ -39,8 +39,6 @@ const StudentEditPage = ({ match }: { match: match<RouteParams> }) => {
   }, [studentId])
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
-    // e.preventDefault()
-
     const form = e.currentTarget
     if (form.checkValidity() === false) {
       e.preventDefault()

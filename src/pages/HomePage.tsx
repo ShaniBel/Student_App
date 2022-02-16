@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState, ChangeEvent } from "react"
+import React, { useEffect, useState, ChangeEvent } from "react"
 import axios from "axios"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { StudentI } from "../interfaces/studentInterface"
 import Student from "../components/Student"
 import Paginate from "../components/Paginate"
 
-const HomePage = () => {
+const HomePage = (): JSX.Element => {
   const [students, setStudents] = useState<Array<StudentI>>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [studentsPerPage] = useState(6)

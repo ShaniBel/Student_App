@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React from "react"
 import { Pagination } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
@@ -9,12 +9,12 @@ interface Props {
   whatPageIsIt: (number: number) => void
 }
 
-const Paginate: FC<Props> = ({
+const Paginate = ({
   studentsPerPage,
   totalStudents,
   currentPage,
   whatPageIsIt,
-}) => {
+}: Props): JSX.Element => {
   const pageNumbers = []
 
   for (let i = 1; i <= Math.ceil(totalStudents / studentsPerPage); i++) {
