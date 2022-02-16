@@ -1,11 +1,14 @@
 import React, { FC, useEffect, useState, ChangeEvent } from "react"
 import axios from "axios"
 import { Container, Row, Col, Button } from "react-bootstrap"
-import Student from "../components/Student"
 import { StudentI } from "../interfaces/studentInterface"
+import Student from "../components/Student"
+import Paginate from "../components/Paginate"
 
 const HomePage: FC = () => {
-  const [data, setData] = useState<Array<StudentI>>([])
+  const [students, setStudents] = useState<Array<StudentI>>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [studentsPerPage] = useState(6)
 
   async function getData() {
     const { data } = await axios.get(
@@ -17,22 +20,22 @@ const HomePage: FC = () => {
   useEffect(() => {
     const dataFromStorage = localStorage.getItem("students")
     if (dataFromStorage) {
-      setData(JSON.parse(dataFromStorage))
+      setStudents(JSON.parse(dataFromStorage))
     } else {
       getData()
-        .then((data) => {
+        .then((data: StudentI[]) => {
           localStorage.setItem("students", JSON.stringify(data))
-          setData(data)
+          setStudents(data)
         })
         .catch((err) => console.error(err))
     }
   }, [])
 
   const handleChecked = (e: ChangeEvent<HTMLInputElement>, id: number) => {
-    let dataFromStorage = [...data]
+    let dataFromStorage = [...students]
     dataFromStorage[id - 1].isChecked = e.target.checked
     localStorage.setItem("students", JSON.stringify(dataFromStorage))
-    setData(dataFromStorage)
+    setStudents(dataFromStorage)
   }
 
   const handleDelete = () => {
@@ -40,13 +43,23 @@ const HomePage: FC = () => {
       "Are you sure you want to delete checked?"
     )
     if (isConfirmed) {
-      let studentsToNotDelete = [...data]
+      let studentsToNotDelete = [...students]
       studentsToNotDelete = studentsToNotDelete.filter(
         (student) => !student.isChecked
       )
       localStorage.setItem("students", JSON.stringify(studentsToNotDelete))
-      setData(studentsToNotDelete)
+      setStudents(studentsToNotDelete)
     }
+  }
+
+  //get current students
+  const indexOfLastStudent = currentPage * studentsPerPage
+  const indexOfFirstStudent = indexOfLastStudent - studentsPerPage
+  const currentStudents = students.slice(indexOfFirstStudent, indexOfLastStudent)
+
+  //change page
+  const something = (pageNumber: number) => {
+    setCurrentPage(pageNumber)
   }
 
   return (
@@ -69,15 +82,23 @@ const HomePage: FC = () => {
         </Row>
 
         <Row>
-          {data.length !== 0 &&
-            data.map((student: StudentI) => (
-              <Col key={student.id} sm={12} md={6} lg={5} xl={5} className='my-2'>
+          {students.length !== 0 &&
+            currentStudents.map((student: StudentI) => (
+              <Col key={student.id} sm={12} md={6} lg={4} xl={4} className='my-2'>
                 <Student
                   student={student}
                   handleChecked={(e) => handleChecked(e, student.id)}
                 />
               </Col>
             ))}
+        </Row>
+        <Row className='my-3'>
+          <Paginate
+            studentsPerPage={studentsPerPage}
+            totalStudents={students.length}
+            currentPage={currentPage}
+            something={something}
+          />
         </Row>
       </Container>
     </>
