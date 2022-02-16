@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState, ChangeEvent } from "react"
 import axios from "axios"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { StudentI } from "../interfaces/studentInterface"
-import students from "../components/Students"
 import Student from "../components/Student"
 import Paginate from "../components/Paginate"
 
@@ -13,7 +12,7 @@ const HomePage = () => {
 
   async function getData() {
     const { data } = await axios.get(
-      "https://run.mocky.io/v3/5f506902-29d7-4238-8c9a-b5c319318473"
+      "https://run.mocky.io/v3/8cd08002-c86e-4d81-90b3-61639b175b23"
     )
     return data
   }
@@ -93,6 +92,7 @@ const HomePage = () => {
               </Col>
             ))}
         </Row>
+
         <Row className='my-3'>
           <Paginate
             studentsPerPage={studentsPerPage}
