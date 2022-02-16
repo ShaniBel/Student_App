@@ -7,8 +7,9 @@ const App: FC = () => {
   return (
     <Router>
       <Switch>
-        <Route path='/student/:id/edit' component={StudentEditPage} />
-        <Route path='/' component={HomePage} />
+        <Route exact path='/student/:id/edit' component={StudentEditPage} />
+        <Route exact path='/page/:pageNumber' component={HomePage} />
+        <Route exact path='/' component={HomePage} />
       </Switch>
     </Router>
   )

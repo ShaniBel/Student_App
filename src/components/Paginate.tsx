@@ -1,19 +1,20 @@
 import React, { FC } from "react"
 import { Pagination } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { LinkContainer } from "react-router-bootstrap"
 
 interface Props {
   studentsPerPage: number
   totalStudents: number
   currentPage: number
-  something: (number: number) => void
+  whatPageIsIt: (number: number) => void
 }
 
 const Paginate: FC<Props> = ({
   studentsPerPage,
   totalStudents,
   currentPage,
-  something,
+  whatPageIsIt,
 }) => {
   const pageNumbers = []
 
@@ -24,15 +25,14 @@ const Paginate: FC<Props> = ({
   return (
     <Pagination>
       {pageNumbers.map((number) => (
-        <Link
-          onClick={() => something(number)}
-          key={number}
-          to={`/page/${number}`}
-        >
-          <Pagination.Item active={currentPage === number}>
+        <LinkContainer to={`/page/${number}`}>
+          <Pagination.Item
+            onClick={() => whatPageIsIt(number)}
+            active={currentPage === number}
+          >
             {number}
           </Pagination.Item>
-        </Link>
+        </LinkContainer>
       ))}
     </Pagination>
   )

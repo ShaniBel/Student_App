@@ -5,7 +5,7 @@ import { StudentI } from "../interfaces/studentInterface"
 import Student from "../components/Student"
 import Paginate from "../components/Paginate"
 
-const HomePage: FC = () => {
+const HomePage = () => {
   const [students, setStudents] = useState<Array<StudentI>>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [studentsPerPage] = useState(6)
@@ -39,14 +39,10 @@ const HomePage: FC = () => {
   }
 
   const handleDelete = () => {
-    let isConfirmed: boolean = window.confirm(
-      "Are you sure you want to delete checked?"
-    )
+    let isConfirmed: boolean = window.confirm("Are you sure you want to delete checked?")
     if (isConfirmed) {
       let studentsToNotDelete = [...students]
-      studentsToNotDelete = studentsToNotDelete.filter(
-        (student) => !student.isChecked
-      )
+      studentsToNotDelete = studentsToNotDelete.filter((student) => !student.isChecked)
       localStorage.setItem("students", JSON.stringify(studentsToNotDelete))
       setStudents(studentsToNotDelete)
     }
@@ -58,7 +54,7 @@ const HomePage: FC = () => {
   const currentStudents = students.slice(indexOfFirstStudent, indexOfLastStudent)
 
   //change page
-  const something = (pageNumber: number) => {
+  const whatPageIsIt = (pageNumber: number) => {
     setCurrentPage(pageNumber)
   }
 
@@ -97,7 +93,7 @@ const HomePage: FC = () => {
             studentsPerPage={studentsPerPage}
             totalStudents={students.length}
             currentPage={currentPage}
-            something={something}
+            whatPageIsIt={whatPageIsIt}
           />
         </Row>
       </Container>
