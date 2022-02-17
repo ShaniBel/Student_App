@@ -4,10 +4,10 @@ The student app was developed using React and TypeScript with responsive design.
 
 ### Functionality includes
 
-1. Fetching mock data of students informatin from an api, and saving it to local storage. The data is fetched once and every change to the data is saved localy in the local storage.
+1. Fetching mock data of students information from an api, and saving it to local storage. The data is fetched once and every change to the data is saved locally in the local storage.
 2. Displaying the the student information as responsive cards.
 3. Pagination of student cards, 6 per page in home page.
-4. Ability to choose multiple student cards and deleteing them at once.
+4. Ability to choose multiple student cards and deleting them at once.
 5. Ability to edit student information in another page using a form.
 6. Validation of edit student form with informative messages to user.
 
